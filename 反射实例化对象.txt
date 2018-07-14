@@ -1,0 +1,22 @@
+   public static object CreateInstancePresentationInstance(string ClassName,string PresentationAssemblyName, object parms)
+       {
+           try
+           {
+               string vDllName = PresentationAssemblyName;
+               string vFullClassName = string.Format("{0}.{1}", PresentationAssemblyName, ClassName);
+               object result = null;
+               Type typeofControl = null;
+               Assembly tempAssembly;
+               tempAssembly = Assembly.Load(vDllName);
+               typeofControl = tempAssembly.GetType(vFullClassName);
+               if (typeofControl != null)
+               {
+                   result = Activator.CreateInstance(typeofControl, parms);
+               }
+               return result;
+           }
+           catch
+           {
+               return null;
+           }
+       }
